@@ -8,6 +8,7 @@
     4：Kendall tau距离
     5：二分图
     6：边连通图
+    7：汉密尔顿路径，唯一拓扑排序
 
 ## leetcode-1：leetcode算法训练初级
     1：旋转数组
@@ -29,9 +30,14 @@
     maxHeap：大顶堆
 
 ## graph 图
+    UninFind：动态连通性问题
     Graph：邻接表无向图图,允许平行边和自环
     Digraph：领接表有向图
     BreadthFirstSearch：广度优先搜索
     DepthFirstSearch：深度优先搜索
     DirectedCycle：有向图图环
-    DFO：深度优先搜索顺序
+    DFO：深度优先搜索顺序l
+    SCC：强连通分量，双向可达
+    WeightedGraph：加权无向图
+    PrimMST：prim算法加权无向图最小生成树
+    KruskalMST：kruskal算法最小生成树

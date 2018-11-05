@@ -5,7 +5,7 @@ from graph.Digraph import Digraph
 
 class DirectedCycle:
     def __init__(self, digraph: Digraph):
-        if type(digraph) != Digraph:
+        if not isinstance(digraph, Digraph):
             raise TypeError('argument must be graph.Digraph')
         self._digraph = digraph
         self._marked = set()
@@ -34,7 +34,7 @@ class DirectedCycle:
                     pre = self._current_path[pre]
                 self._cycle.append(n)
                 self._cycle.reverse()  # 因为是返回，所以环的顺序是反的
-        self._current_path.pop(vertex)  # 往回走，从路径中删除
+        del self._current_path[vertex]  # 往回走，从路径中删除
 
     def cycle(self):
         return self._cycle

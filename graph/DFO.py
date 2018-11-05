@@ -1,8 +1,5 @@
 # coding=utf-8
 
-from graph.Digraph import Digraph
-
-
 class DFO:
     def __init__(self, graph):
         self._graph = graph
@@ -31,6 +28,7 @@ class DFO:
 
 # ================= test ===============
 if __name__ == '__main__':
+    from graph.Digraph import Digraph
 
     with open('./tinyDG.txt') as f:
         g = Digraph()
@@ -40,5 +38,6 @@ if __name__ == '__main__':
             datas = l.split('  ')
             g.add_edge(int(datas[0]), int(datas[1]))
         c = DFO(g)
-        print(c.preorder())
+        c2 = DFO(g.reverse())
         print(c.postorder())
+        print(c2.postorder())

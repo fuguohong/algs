@@ -37,15 +37,6 @@ def two_key_sort(arr):
             opinter += 1
 
 
-#############################
-import test.sort_test
-import time
-
-a = test.sort_test.make_random_array(20000, 0, 1)
-x = a[:]
-start = time.time()
-two_key_sort(a)
-print(time.time()-start)
-test.sort_test.compareSpeed(a)
-
-
+# ================== test ===============
+if __name__ == '__main__':
+    pass

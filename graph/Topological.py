@@ -10,6 +10,7 @@ class Topological:
         self._digraph = digraph
         dc = DirectedCycle(digraph)
         if dc.has_cycle():
+            print(dc.cycle())
             raise Exception('topological sort error,digraph has cycle')
         postorder = DFO(digraph).postorder()
         postorder.reverse()
@@ -27,5 +28,5 @@ if __name__ == '__main__':
         for l in f.readlines():
             datas = l.strip().split(' ')
             g.add_edge(datas[0], datas[1])
-        c = Topological(g)
+        c = Topological(g.reverse())
         print(c.order())

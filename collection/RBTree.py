@@ -337,7 +337,7 @@ if __name__ == "__main__":
     from util import make_random_array
     from sort import is_sorted
 
-    count = 100
+    count = 10
     a = make_random_array(count, 0, count * 10)
     t = RBTree()
     for i in a:

@@ -52,25 +52,7 @@ class UnionFind:
         self.union_count -= 1
         return 1
 
-    def connected(self, node1, node2):
+    def is_connected(self, node1, node2):
         root1 = self.find_root(node1)
         root2 = self.find_root(node2)
         return root1 == root2
-
-
-# ================== test ===============
-if __name__ == '__main__':
-    uf = UnionFind()
-
-    with open('./1_data.txt') as f:
-        f.readline()
-        for l in f.readlines():
-            datas = l.split(' ')
-            uf.union(int(datas[0]), int(datas[1]))
-
-    print(uf.union_count)
-    print(uf.connected(25, 10))
-
-    uf.union(25, 10)
-    print(uf.union_count)
-    print(uf.connected(25, 10))
