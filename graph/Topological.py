@@ -6,7 +6,12 @@ from graph.DirectedCycle import DirectedCycle
 
 
 class Topological:
-    def __init__(self, digraph: Digraph):
+    """
+    有向图的拓扑排序。有向图必须是无环的，其拓扑排序就是深度优先搜索的逆后序
+    时间复杂度O(n) n=V+E
+    """
+
+    def __init__(self, digraph):
         self._digraph = digraph
         dc = DirectedCycle(digraph)
         if dc.has_cycle():

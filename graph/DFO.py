@@ -10,6 +10,7 @@ class DFO:
             if v not in self._marked:
                 self._search(v)
         del self._marked
+        del self._graph
 
     def _search(self, vertex):
         self._marked.add(vertex)

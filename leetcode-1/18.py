@@ -41,4 +41,4 @@ def linePoints(points, point):
     return max(slopes.values()) + same
 
 
-print(maxPoints([ [ 0, 0 ], [ 94911151, 94911150 ], [ 94911152, 94911151 ] ]))
+print(maxPoints([[0, 0], [94911151, 94911150], [94911152, 94911151]]))

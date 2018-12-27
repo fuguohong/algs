@@ -23,6 +23,7 @@
     10：原地合并有序数组
     11：两数之和
     12：回文串，只考虑数字字母
+    18：最多点的线
 
 ## jzOffer 剑指offer题目
     1：重复数字
@@ -33,19 +34,26 @@
 
 ## collection 集合各种数据结构实现
     BSTree：二叉搜索树
-    RBTree：红黑树
+    Heap：堆
+    IndexedMaxHeap：支持修改删除的大顶堆
     linkedList：链表
-    maxHeap：大顶堆
+    RBTree：红黑树
+
 
 ## graph 图
-    UninFind：动态连通性问题
-    Graph：邻接表无向图图,允许平行边和自环
-    Digraph：领接表有向图
+    AcycliSP：有向无环图最短路径
     BreadthFirstSearch：广度优先搜索
+    CC：连通分量
     DepthFirstSearch：深度优先搜索
+    DFO：深度优先搜索顺序
+    Digraph：领接表有向图
+    Dijkstra：最短路径dijkstra算法
     DirectedCycle：有向图图环
-    DFO：深度优先搜索顺序l
-    SCC：强连通分量，双向可达
-    WeightedGraph：加权无向图
-    PrimMST：prim算法加权无向图最小生成树
+    Graph：邻接表无向图图,允许平行边和自环
     KruskalMST：kruskal算法最小生成树
+    PrimMST：prim算法加权无向图最小生成树
+    SCC：强连通分量，双向可达
+    Topological：有向无环图的拓扑排序
+    UninFind：动态连通性问题
+    WeightedDigraph：加权有向图
+    WeightedGraph：加权无向图

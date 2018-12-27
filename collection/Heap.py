@@ -1,7 +1,7 @@
 # coding=utf-8
 
 
-def comparefn(a, b):
+def default_compare(a, b):
     if a < b:
         return -1
     elif a > b:
@@ -12,9 +12,9 @@ def comparefn(a, b):
 
 class Heap:
 
-    def __init__(self, compare=comparefn):
+    def __init__(self, compare=default_compare):
         """
-        堆，最大的值终是在最前面。insert 和 pop 时间复杂度为 lgn
+        堆，最大的值终是在最前面。insert 和 pop 时间复杂度为 logn
         :param compare: (a,b): return (number)
         example :
         构建一个小顶堆。
@@ -27,7 +27,7 @@ class Heap:
                 return 0
         """
         self._compare = compare
-        self._datas = [None]
+        self._data = [None]
         self._size = 0
 
     def get_size(self):
@@ -37,48 +37,60 @@ class Heap:
         return self._size == 0
 
     def values(self):
-        return self._datas
+        return self._data
 
     def insert(self, data):
-        self._datas.append(data)
         self._size += 1
+        if self._size == len(self._data):
+            self._data.append(data)
+        else:
+            self._data[self._size] = data
         self._swim()
 
     def pop(self):
-        if self._size < 1:
+        if self.is_empty():
             raise Exception('can not pop empty heap')
-        data = self._datas[1]
+        data = self._data[1]
         self._swap(1, self._size)
-        del self._datas[self._size]
         self._size -= 1
+        if len(self._data) > self._size * 2:
+            del self._data[self._size + 1:]
+        # del self._datas[self._size]
         self._sink()
         return data
+
+    def get_top(self):
+        return self._data[1]
 
     def _swim(self, index=None):
         index = index or self._size
         father = int(index / 2)
-        while index > 1 and self._compare(self._datas[index], self._datas[father]) > 0:
+        while index > 1 and self._compare(self._data[index], self._data[father]) > 0:
             self._swap(index, father)
             index = father
             father = int(index / 2)
+        return index
 
     def _sink(self, index=1):
         child = index * 2
         while child <= self._size:
             # 存在右节点并且右节点比左节点大， 上浮右节点
-            if child + 1 <= self._size and self._compare(self._datas[child], self._datas[child + 1]) < 0:
+            if child + 1 <= self._size and self._compare(self._data[child], self._data[child + 1]) < 0:
                 child += 1
-            if self._compare(self._datas[child], self._datas[index]) <= 0:
+            if self._compare(self._data[child], self._data[index]) <= 0:
                 break
             self._swap(index, child)
             index = child
             child = index * 2
+        return index
 
     def _swap(self, i, j):
-        temp = self._datas[i]
-        self._datas[i] = self._datas[j]
-        self._datas[j] = temp
+        temp = self._data[i]
+        self._data[i] = self._data[j]
+        self._data[j] = temp
 
+
+Heap.default_compare = default_compare
 
 # ================== test ===============
 if __name__ == '__main__':
@@ -96,7 +108,7 @@ if __name__ == '__main__':
 
 
     heap = Heap()
-    arr = [5, 9, 7, 1, 6, 4, 3]
+    arr = make_random_array(20, -100, 100)
     for i in arr:
         heap.insert(i)
 

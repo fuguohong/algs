@@ -1,0 +1,109 @@
+# coding=utf-8
+
+from collection.Heap import Heap
+
+
+class IndexedHeap(Heap):
+    def __init__(self, comparefn=Heap.default_compare):
+        super(IndexedHeap, self).__init__(comparefn)
+        self._index = dict()
+
+    def pop(self):
+        data = super().pop()
+        del self._index[data]
+        return data
+
+    def contains(self, data):
+        return data in self._index
+
+    def update(self, old_value, new_value):
+        index = self._index.get(old_value)
+        if index is None:
+            raise Exception('old_value does not in heap')
+        self._data[index] = new_value
+        cmp = self._compare(old_value, new_value)
+
+        if cmp < 0:
+            ni = self._swim(index)
+        elif cmp > 0:
+            ni = self._sink(index)
+        else:
+            return
+        self._index[new_value] = ni
+        del self._index[old_value]
+
+    def remove(self, data):
+        index = self._index.get(data)
+        if index is None:
+            raise Exception('data does not in heap')
+        old_data = self._data[index]
+        self._swap(index, self._size)
+        self._size -= 1
+        if len(self._data) > self._size * 2:
+            del self._data[self._size + 1:]
+        del self._index[data]
+        cmp = self._compare(old_data, self._data[index])
+        if cmp < 0:
+            self._swim(index)
+        elif cmp > 0:
+            self._sink(index)
+
+    def _swim(self, index=None):
+        if self.is_empty():
+            return
+        index = index or self._size
+        father = int(index / 2)
+        while index > 1 and self._compare(self._data[index], self._data[father]) > 0:
+            self._index[self._data[father]] = index
+            self._swap(index, father)
+            index = father
+            father = int(index / 2)
+        self._index[self._data[index]] = index
+        return index
+
+    def _sink(self, index=1):
+        if self.is_empty():
+            return
+        child = index * 2
+        while child <= self._size:
+            # 存在右节点并且右节点比左节点大， 上浮右节点
+            if child + 1 <= self._size and self._compare(self._data[child], self._data[child + 1]) < 0:
+                child += 1
+            if self._compare(self._data[child], self._data[index]) <= 0:
+                break
+            self._index[self._data[child]] = index
+            self._swap(index, child)
+            index = child
+            child = index * 2
+        self._index[self._data[index]] = index
+        return index
+
+    def _swap(self, i, j):
+        super()._swap(i, j)
+        self._index[self._data[i]] = i
+        self._index[self._data[j]] = j
+
+    def __contains__(self, item):
+        return self.contains(item)
+
+
+# ================== test ===============
+if __name__ == '__main__':
+    from util import make_random_array
+    import sort
+
+    ih = IndexedHeap()
+    arr = [5, 7, 9, 6, 1, 3, 0, 4, ]
+    for num in arr:
+        ih.insert(num)
+    print(ih.contains(3))
+    ih.update(3, 10)
+    print(ih.contains(3))
+    ih.remove(6)
+    ih.remove(5)
+    ih.insert(-2)
+    ih.insert(12)
+    ih.insert(8)
+    print(ih.contains(10))
+    while not ih.is_empty():
+        print(ih.pop())
