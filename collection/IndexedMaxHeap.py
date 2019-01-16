@@ -51,7 +51,7 @@ class IndexedMaxHeap:
         """
         eindex = self._index.get(element)
         if eindex is None:
-            raise Exception('element dose not in this heap. element: ' + element)
+            raise Exception('element dose not in heap. element: ' + element)
         eweight = self._data[eindex][1]
         self._data[eindex][1] = weight
         if eweight < weight:
@@ -67,7 +67,7 @@ class IndexedMaxHeap:
         """
         eindex = self._index.get(element)
         if eindex is None:
-            raise Exception('element dose not in this heap. element: ' + element)
+            raise Exception('element dose not in heap. element: ' + element)
         eweight = self._data[eindex][1]
         # 将元素和最后一个元素交换位置
         self._swap(eindex, self._size)
@@ -100,7 +100,7 @@ class IndexedMaxHeap:
         """
         eindex = self._index.get(element)
         if eindex is None:
-            raise Exception('element dose not in this heap. element: ' + element)
+            raise Exception('element dose not in heap. element: ' + element)
         return self._data[eindex][1]
 
     def get_elemts(self):
@@ -122,6 +122,8 @@ class IndexedMaxHeap:
         获取堆顶元素，不会删除
         :return:
         """
+        if self.is_empty():
+            return None
         return self._data[1][0]
 
     def get_size(self):
@@ -199,16 +201,16 @@ class IndexedMaxHeap:
 
 if __name__ == '__main__':
     heap = IndexedMaxHeap()
-    heap.insert('a', 1)
-    heap.insert('b', 2)
-    heap.insert('asd', 4)
-    heap.insert('ad', 9)
-    heap.insert('qq', 2)
-
-    heap.remove('asd')
-    heap.insert('pp', 12)
+    # heap.insert('a', 1)
+    # heap.insert('b', 2)
+    # heap.insert('asd', 4)
+    # heap.insert('ad', 9)
+    # heap.insert('qq', 2)
+    #
+    # heap.remove('asd')
+    # heap.insert('pp', 12)
 
     # while not heap.is_empty():
     #     print(heap.pop())
 
-    print(heap.get_elemts_with_weight())
+    print(heap.get_top())

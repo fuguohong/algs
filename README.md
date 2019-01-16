@@ -9,6 +9,9 @@
     5：二分图
     6：边连通图
     7：汉密尔顿路径，唯一拓扑排序
+    8：BoyerMoore 字符串查找算法
+    9：RabinKarp 指纹字符串查找算法
+    10：KMP 字符串查找算法加强版
 
 ## leetcode
     1：旋转数组
@@ -42,15 +45,17 @@
 
 ## graph 图
     AcycliSP：有向无环图最短路径
+    BellmanFord：含有负权重边的最短路径算法
     BreadthFirstSearch：广度优先搜索
     CC：连通分量
     DepthFirstSearch：深度优先搜索
     DFO：深度优先搜索顺序
     Digraph：领接表有向图
-    Dijkstra：最短路径dijkstra算法
-    DirectedCycle：有向图图环
+    Dijkstra：最短路径dijkstra算法及时版
+    DirectedCycle：有向图环
     Graph：邻接表无向图图,允许平行边和自环
     KruskalMST：kruskal算法最小生成树
+    LazyDijkstra：最短路径dijkstra算法延时版
     PrimMST：prim算法加权无向图最小生成树
     SCC：强连通分量，双向可达
     Topological：有向无环图的拓扑排序

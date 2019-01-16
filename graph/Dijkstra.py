@@ -1,55 +1,47 @@
 # coding=utf-8
 
-from collection.Heap import Heap
-from graph.WeightedGraph import WeightedGraph
+from graph.WeightedDigraph import WeightedDigraph
+from collection.IndexedMaxHeap import IndexedMaxHeap
 
 
-def compare(a, b):
-    if a.weight < b.weight:
-        return 1
-    elif a.weight > b.weight:
-        return -1
-    else:
-        return 0
-
-
-class LazyDijkstra:
+class Dijkstra:
     """
     alg4 p421
-    延时版Dijkstra有向图最短路径算法，不能处理含有负权重的图
-    时间复杂度 O(ElogE)
+    及时版Dijkstra有向图最短路径算法，不能处理含有负权重的图
+    该算法也适用于无向图w = e.v2，改为w = e.other(v) 即可
+    时间复杂度 O(ElogV)
     """
 
-    def __init__(self, weighted_grapgh: WeightedGraph, start):
-        self.__g = weighted_grapgh
-        self.__marked = set()
-        self.__pq = Heap(compare)
+    def __init__(self, weighted_digraph: WeightedDigraph, start):
+        self.__g = weighted_digraph
+        self.__pq = IndexedMaxHeap()
         self._dist_to = dict()
         self._edge_to = dict()
         self._start = start
-        # 初始化达达起点的权重为0
+        # 优先队列。保存了顶点到起点的距离。
+        self.__pq.insert(start, 0)
         self._dist_to[start] = 0
-        # 首先访问一次起点
-        self._relax(start)
         while not self.__pq.is_empty():
-            e = self.__pq.pop()
-            # 边到达的顶点没有访问过，就访问这个顶点（起点一定被访问过，否则边不会存在在队列中）。
-            if e.v2 not in self.__marked:
-                self._relax(e.v2)
+            self._relax(self.__pq.pop())
         # 释放引用
         del self.__g
-        del self.__marked
         del self.__pq
 
     def _relax(self, v):
-        # 将顶点标记访问
-        self.__marked.add(v)
+        vdist = self._dist_to[v]
         for e in self.__g.adj(v):
-            # 走e权重小，就更换到达顶点的边为e
-            if e.v2 not in self._dist_to or self._dist_to.get(e.v2) > self._dist_to[v] + e.weight:
-                self._edge_to[e.v2] = e
-                self._dist_to[e.v2] = self._dist_to[v] + e.weight
-                self.__pq.insert(e)
+            w = e.v2
+            # 还没有访问这个顶点
+            if w not in self._dist_to:
+                # 由于是大顶堆，每次要取出离起点最近的点，所以距离取负数
+                self.__pq.insert(w, -vdist - e.weight)
+                self._edge_to[w] = e
+                self._dist_to[w] = vdist + e.weight
+                # 这里的小于，对应着距离大于 vdist+weight
+            elif self._dist_to[w] > vdist + e.weight:
+                self.__pq.update(w, -vdist - e.weight)
+                self._edge_to[w] = e
+                self._dist_to[w] = vdist + e.weight
 
     def dist_to(self, v):
         return self._dist_to.get(v)
@@ -67,13 +59,13 @@ class LazyDijkstra:
         return edges
 
 
-# TODO 及时版dijkstra算法； 无向图最短路径算法； 负权重最短路径即负环检测
 # ================== test ===============
 if __name__ == '__main__':
     with open('./tinyWG.txt') as f:
-        g = WeightedGraph()
+        g = WeightedDigraph()
         for l in f.readlines():
             datas = l.split(' ')
             g.add_edge(int(datas[0]), int(datas[1]), float(datas[2]))
-        c = LazyDijkstra(g, 3)
-        print(c.path_to(7))
+        c = Dijkstra(g, 6)
+        for e in c.path_to(7):
+            print(e)

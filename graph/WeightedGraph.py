@@ -16,7 +16,7 @@ class WeightedEdge:
             raise Exception('v is not a vertex of this edge')
 
     def __str__(self):
-        return '[%s]--%.2f--[%s]' % (self.v1, self.weight, self.v2)
+        return '[%s]__%.2f__[%s]' % (self.v1, self.weight, self.v2)
 
 
 class WeightedGraph:
