@@ -45,6 +45,7 @@ class RabinKarp:
             return -1
         texthash = self._hash(text, lenght=self._patlen)
         if texthash == self._pathash and self._check(text, 0):
+
             return 0
         for i in range(0, n - self._patlen):
             # 加上Q是为了保证结果为正数，因为是对Q求余，所以加上Q并不会影响结果
