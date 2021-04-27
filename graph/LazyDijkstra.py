@@ -15,7 +15,7 @@ def compare(a, b):
 
 class LazyDijkstra:
     """
-    alg4 p421
+    alg-1 p421
     延时版Dijkstra有向图最短路径算法，不能处理含有负权重的图
     时间复杂度 O(ElogE)
     """

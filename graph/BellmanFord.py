@@ -7,7 +7,7 @@ from collections import deque
 
 class BellmanFord:
     """
-    alg4 p433/438
+    alg-1 p433/438
     含有负权重边的有向图最短路径算法。
     如果含有负权重的环，则最短路径没有意义。该算法可以检测图中是否含有负权重环
     时间复杂度，最好情况V+E, 最坏情况VE

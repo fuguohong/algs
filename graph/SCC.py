@@ -1,7 +1,7 @@
 # coding=utf-8
 
 """
-alg4 p378
+alg-1 p378
 强连通性kosaraju算法
 """
 

@@ -6,10 +6,10 @@ from graph.WeightedDigraph import WeightedDigraph
 
 class AcycliSP:
     """
-    alg4 p425
+    alg-1 p425
     有向无环图最路径。根据它的拓扑排序放松边即可得到最短（长）路径
     时间复杂度O(n) n=E+V
-    该算法可以解决 优先级限制下的并行任务调度问题 alg4 p429
+    该算法可以解决 优先级限制下的并行任务调度问题 alg-1 p429
     """
 
     def __init__(self, digraph: WeightedDigraph):

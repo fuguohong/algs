@@ -6,7 +6,7 @@ from collection.IndexedMaxHeap import IndexedMaxHeap
 
 class Dijkstra:
     """
-    alg4 p421
+    alg-1 p421
     及时版Dijkstra有向图最短路径算法，不能处理含有负权重的图
     该算法也适用于无向图w = e.v2，改为w = e.other(v) 即可
     时间复杂度 O(ElogV)
